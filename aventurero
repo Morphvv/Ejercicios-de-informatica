@@ -1,0 +1,117 @@
+# Lista para guardar aventureros
+aventureros = []
+
+# Función para registrar aventurero
+def registrar_aventurero():
+    nombre = input("Ingrese el nombre: ")
+    edad = int(input("Ingrese la edad: "))
+    codigo = input("Ingrese el código único: ")
+
+    for a in aventureros:
+        if a["codigo"] == codigo:
+            print("Ese código ya está registrado.")
+            return
+
+    nuevo = {"nombre": nombre, "edad": edad, "codigo": codigo, "puntajes": []}
+    aventureros.append(nuevo)
+    print(f"Aventurero {nombre} registrado.")
+
+# Función para registrar puntaje
+def registrar_puntaje():
+    codigo = input("Ingrese el código del aventurero: ")
+    for a in aventureros:
+        if a["codigo"] == codigo:
+            try:
+                puntaje = int(input(f"Ingrese puntaje para {a['nombre']}: "))
+                a["puntajes"].append(puntaje)
+                print("Puntaje agregado.")
+                return
+            except:
+                print("Error en el ingreso de puntaje.")
+                return
+    print("Aventurero no encontrado.")
+
+# Modificar puntaje específico
+def modificar_puntaje():
+    codigo = input("Ingrese el código del aventurero: ")
+    for a in aventureros:
+        if a["codigo"] == codigo:
+            if not a["puntajes"]:
+                print("Este aventurero no tiene puntajes.")
+                return
+            print(f"Lista de puntajes: {a['puntajes']}")
+            i = int(input("Ingrese el número de sesión (comienza en 0): "))
+            if 0 <= i < len(a["puntajes"]):
+                nuevo = int(input("Nuevo puntaje: "))
+                a["puntajes"][i] = nuevo
+                print("Puntaje actualizado.")
+                return
+            else:
+                print("Índice inválido.")
+                return
+    print("Aventurero no encontrado.")
+
+# Reporte de acumulado y promedio
+def reporte_4():
+    for a in aventureros:
+        if a["puntajes"]:
+            total = sum(a["puntajes"])
+            promedio = total / len(a["puntajes"])
+            print(f"{a['nombre']}: Total = {total}, Promedio = {promedio:.2f}")
+        else:
+            print(f"{a['nombre']} no tiene puntajes.")
+
+# Mostrar aventureros con promedio bajo
+def reporte_umbral():
+    umbral = float(input("Ingrese el umbral mínimo: "))
+    for a in aventureros:
+        if a["puntajes"]:
+            promedio = sum(a["puntajes"]) / len(a["puntajes"])
+            if promedio < umbral:
+                print(f"{a['nombre']} tiene promedio {promedio:.2f} (bajo el umbral)")
+
+# Mostrar todos los aventureros
+def lista():
+    for a in aventureros:
+        print(f"Nombre: {a['nombre']}, Edad: {a['edad']}, Código: {a['codigo']}, Puntajes: {a['puntajes']}")
+
+# Filtrar por edad
+def filtrar_por_edad():
+    edad = int(input("Ingrese la edad a buscar: "))
+    for a in aventureros:
+        if a["edad"] == edad:
+            print(f"{a['nombre']} tiene {edad} años.")
+
+# Menú principal
+while True:
+    print("\nMenu")
+    print("[1]: Registrar aventurero")
+    print("[2]: Registrar puntajes")
+    print("[3]: Modificar puntaje de una sesión")
+    print("[4]: Ver total y promedio por aventurero")
+    print("[5]: Ver aventureros con promedio bajo")
+    print("[6]: Ver lista de todos los aventureros")
+    print("[7]: Filtrar por edad")
+    print("[8]: Salir")
+
+    opcion = input("Ingrese una opción: ")
+
+    if opcion == '1':
+        registrar_aventurero()
+    elif opcion == '2':
+        registrar_puntaje()
+    elif opcion == '3':
+        modificar_puntaje()
+    elif opcion == '4':
+        reporte_4()
+    elif opcion == '5':
+        reporte_umbral()
+    elif opcion == '6':
+        lista()
+    elif opcion == '7':
+        filtrar_por_edad()
+    elif opcion == '8':
+        print("Saliendo del programa...")
+        break
+    else:
+        print("Opción inválida.")
