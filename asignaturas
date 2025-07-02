@@ -1,0 +1,33 @@
+ID = int(input("Ingrese su ID: "))
+def matematicas():
+    notas1 = float(input("Ingrese la nota 1: "))
+    notas2 = float(input("Ingrese la nota 2: ")) 
+    promedio = (notas1 + notas2) / 2   
+    if promedio >= 4.0:
+        situacion = "Aprobado"
+    else:
+        situacion = "Reprobado"
+    return promedio, situacion
+def historia():
+    notas1 = float(input("Ingrese la nota 1: "))
+    notas2 = float(input("Ingrese la nota 2: "))    
+    promedio = (notas1 + notas2) / 2
+    if promedio >= 4.0:
+        situacion = "Aprobado"
+    else:
+        situacion = "Reprobado"
+    return promedio , situacion
+
+matematicas_total = matematicas()
+historia_total = historia()
+promedio = (matematicas_total[0] + historia_total[0]) / 2
+situacion = "Aprobado" if promedio >= 4.0 else "Reprobado"
+
+datos_academicos = {
+    "Asignaturas": ["Matematicas", "Historia"],
+    "Notas": [matematicas_total, historia_total],
+    "ID": ID,
+    "Promedio": promedio,
+    "Situacion": situacion  
+}   
+print(datos_academicos)
