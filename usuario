@@ -1,0 +1,16 @@
+rut = int(input("Ingrese su rut: "))
+
+nombre = input("Ingrese su nombre: ")
+edad = int(input("Ingrese su edad: "))
+fono = int(input("Ingrese su telefono: "))
+correo = input("Ingrese su correo: ")
+
+datos_personales = {
+    "Nombre":nombre,
+    "Edad":edad,
+    "Telefono":fono,
+    "Email":correo
+}
+
+usuario = {rut: datos_personales}
+print(usuario)
