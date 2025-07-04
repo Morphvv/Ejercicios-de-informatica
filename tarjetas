@@ -1,0 +1,82 @@
+# Diccionario donde se almacenan las tarjetas
+tarjetas = {}
+
+# Función para agregar una nueva tarjeta
+def agregar_tarjeta():
+    numero = input("Ingrese el número de la tarjeta: ")
+    if numero in tarjetas:
+        print("¡La tarjeta ya existe!")
+        return
+    try:
+        saldo = int(input("Ingrese el saldo inicial: "))
+        if saldo < 0:
+            print("El saldo no puede ser negativo.")
+            return
+        tarjetas[numero] = {"compras": 0, "saldo": saldo}
+        print("Tarjeta registrada correctamente.")
+    except ValueError:
+        print("Saldo inválido. Debe ser un número entero.")
+
+# Función para usar una tarjeta (hacer una compra)
+def usar_tarjeta():
+    numero = input("Ingrese el número de la tarjeta: ")
+    if numero not in tarjetas:
+        print("Tarjeta no registrada.")
+        return
+    try:
+        monto = int(input("Ingrese el monto de la compra: "))
+        if monto <= 0:
+            print("Monto inválido.")
+            return
+        if tarjetas[numero]["saldo"] < monto:
+            print("Saldo insuficiente.")
+            return
+        tarjetas[numero]["saldo"] -= monto
+        tarjetas[numero]["compras"] += 1
+        print("Compra realizada con éxito.")
+    except ValueError:
+        print("Monto inválido.")
+
+# Función para ver tarjetas con saldo crítico
+def ver_saldo_critico():
+    try:
+        minimo = int(input("Ingrese el saldo mínimo crítico: "))
+        print("Tarjetas con saldo crítico:")
+        for num, datos in tarjetas.items():
+            if datos["saldo"] <= minimo:
+                print(f"Tarjeta {num} → Saldo: {datos['saldo']}")
+    except ValueError:
+        print("Ingrese un número válido.")
+
+# Función para listar todas las tarjetas
+def listar_todas():
+    if not tarjetas:
+        print("No hay tarjetas registradas.")
+        return
+    print("Listado de tarjetas:")
+    for num, datos in tarjetas.items():
+        print(f"Tarjeta {num} → Saldo: {datos['saldo']}, Compras: {datos['compras']}")
+
+# Menú principal
+while True:
+    print("\n--- MENÚ TARJETAS ---")
+    print("[1] Agregar tarjeta")
+    print("[2] Usar tarjeta")
+    print("[3] Ver tarjetas con saldo crítico")
+    print("[4] Ver todas las tarjetas")
+    print("[5] Salir")
+    opcion = input("Seleccione una opción: ")
+
+    if opcion == "1":
+        agregar_tarjeta()
+    elif opcion == "2":
+        usar_tarjeta()
+    elif opcion == "3":
+        ver_saldo_critico()
+    elif opcion == "4":
+        listar_todas()
+    elif opcion == "5":
+        print("¡Hasta luego!")
+        break
+    else:
+        print("Opción inválida. Intente nuevamente.")
